@@ -1,59 +1,96 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const createPostForm = document.getElementById("create-post-form")
-    const postsContainer = document.getElementById("posts-container")
+    const tweetForm = document.getElementById("tweet-form")
+    const tweetFeed = document.getElementById("tweet-feed")
+    const trendingTopics = document.getElementById("trending-topics")
   
-    createPostForm.addEventListener("submit", (e) => {
+    tweetForm.addEventListener("submit", (e) => {
       e.preventDefault()
-      const postContent = document.getElementById("post-content").value
-      if (postContent.trim() !== "") {
-        createPost(postContent)
-        document.getElementById("post-content").value = ""
+      const tweetContent = document.getElementById("tweet-content").value
+      if (tweetContent.trim() !== "") {
+        createTweet(tweetContent)
+        document.getElementById("tweet-content").value = ""
       }
     })
   
-    function createPost(content) {
-      const post = document.createElement("div")
-      post.className = "post"
-      post.innerHTML = `
-              <div class="post-author">John Doe</div>
-              <div class="post-content">${content}</div>
-              <div class="post-actions">
-                  <button>Like</button>
-                  <button>Comment</button>
-                  <button>Share</button>
-              </div>
-          `
-      postsContainer.prepend(post)
+    function createTweet(content) {
+      fetch("api.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          author: "John Doe", // In a real app, this would be the logged-in user
+          content: content,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === "success") {
+            fetchTweets()
+          } else {
+            console.error("Error creating tweet:", data.message)
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error)
+        })
     }
   
-    // Fetch posts from the server
-    fetchPosts()
+    function fetchTweets() {
+      fetch("api.php")
+        .then((response) => response.json())
+        .then((tweets) => {
+          tweetFeed.innerHTML = ""
+          tweets.forEach((tweet) => {
+            const tweetElement = document.createElement("div")
+            tweetElement.className = "tweet"
+            tweetElement.innerHTML = `
+                      <img src="https://via.placeholder.com/48" alt="User Avatar" class="avatar">
+                      <div class="tweet-content">
+                          <div class="tweet-author">${tweet.author}</div>
+                          <div class="tweet-text">${tweet.content}</div>
+                          <div class="tweet-actions">
+                              <span class="tweet-action"><i class="far fa-comment"></i> 0</span>
+                              <span class="tweet-action"><i class="fas fa-retweet"></i> 0</span>
+                              <span class="tweet-action"><i class="far fa-heart"></i> 0</span>
+                              <span class="tweet-action"><i class="far fa-share-square"></i></span>
+                          </div>
+                      </div>
+                  `
+            tweetFeed.appendChild(tweetElement)
+          })
+        })
+        .catch((error) => {
+          console.error("Error:", error)
+        })
+    }
+  
+    function fetchTrendingTopics() {
+      // In a real application, you would fetch trending topics from the server
+      // For now, we'll use dummy data
+      const dummyTrends = [
+        { category: "Technology", name: "#AI", tweets: "340K" },
+        { category: "Politics", name: "#Election2024", tweets: "120K" },
+        { category: "Sports", name: "Champions League", tweets: "89.7K" },
+        { category: "Entertainment", name: "#NewAlbumDrop", tweets: "50K" },
+        { category: "Science", name: "#MarsExploration", tweets: "25.5K" },
+      ]
+  
+      trendingTopics.innerHTML = ""
+      dummyTrends.forEach((trend) => {
+        const trendElement = document.createElement("li")
+        trendElement.innerHTML = `
+                  <span class="trend-category">${trend.category} · Trending</span>
+                  <span class="trend-name">${trend.name}</span>
+                  <span class="trend-tweets">${trend.tweets} Tweets</span>
+              `
+        trendingTopics.appendChild(trendElement)
+      })
+    }
+  
+    // Fetch tweets and trending topics when the page loads
+    fetchTweets()
+    fetchTrendingTopics()
   })
-  
-  function fetchPosts() {
-    // In a real application, you would fetch posts from the server here
-    // For now, we'll just add some dummy posts
-    const dummyPosts = [
-      { author: "Jane Smith", content: "Hello, world!" },
-      { author: "Bob Johnson", content: "Having a great day!" },
-      { author: "Alice Brown", content: "Just finished a great book!" },
-    ]
-  
-    const postsContainer = document.getElementById("posts-container")
-    dummyPosts.forEach((post) => {
-      const postElement = document.createElement("div")
-      postElement.className = "post"
-      postElement.innerHTML = `
-              <div class="post-author">${post.author}</div>
-              <div class="post-content">${post.content}</div>
-              <div class="post-actions">
-                  <button>Like</button>
-                  <button>Comment</button>
-                  <button>Share</button>
-              </div>
-          `
-      postsContainer.appendChild(postElement)
-    })
-  }
   
   

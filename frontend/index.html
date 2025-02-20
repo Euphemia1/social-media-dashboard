@@ -3,34 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media Dashboard</title>
+    <title>Tweeter Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header>
-        <h1>Social Media Dashboard</h1>
-        <nav>
-            <ul>
-                <li><a href="#" class="active">Home</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Messages</a></li>
-                <li><a href="#">Notifications</a></li>
+    <div class="container">
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="#" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-hashtag"></i> Explore</a></li>
+                    <li><a href="#"><i class="far fa-bell"></i> Notifications</a></li>
+                    <li><a href="#"><i class="far fa-envelope"></i> Messages</a></li>
+                    <li><a href="#"><i class="far fa-user"></i> Profile</a></li>
+                </ul>
+            </nav>
+            <button id="tweet-btn" class="tweet-btn">Tweet</button>
+        </aside>
+        <main class="timeline">
+            <header>
+                <h1>Home</h1>
+            </header>
+            <section id="tweet-compose">
+                <img src="https://via.placeholder.com/48" alt="User Avatar" class="avatar">
+                <form id="tweet-form">
+                    <textarea id="tweet-content" placeholder="What's happening?"></textarea>
+                    <div class="tweet-actions">
+                        <button type="submit">Tweet</button>
+                    </div>
+                </form>
+            </section>
+            <section id="tweet-feed"></section>
+        </main>
+        <aside class="trends">
+            <h2>Trends for you</h2>
+            <ul id="trending-topics">
+                <!-- Trending topics will be inserted here -->
             </ul>
-        </nav>
-    </header>
-    <main>
-        <section id="post-form">
-            <h2>Create a Post</h2>
-            <form id="create-post-form">
-                <textarea id="post-content" placeholder="What's on your mind?"></textarea>
-                <button type="submit">Post</button>
-            </form>
-        </section>
-        <section id="feed">
-            <h2>News Feed</h2>
-            <div id="posts-container"></div>
-        </section>
-    </main>
+        </aside>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
