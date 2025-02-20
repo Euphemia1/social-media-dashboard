@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Social Media Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Messages</a></li>
+                <li><a href="#">Notifications</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="post-form">
+            <h2>Create a Post</h2>
+            <form id="create-post-form">
+                <textarea id="post-content" placeholder="What's on your mind?"></textarea>
+                <button type="submit">Post</button>
+            </form>
+        </section>
+        <section id="feed">
+            <h2>News Feed</h2>
+            <div id="posts-container"></div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
+
