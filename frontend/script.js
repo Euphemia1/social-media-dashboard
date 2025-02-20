@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          author: "John Doe", // In a real app, this would be the logged-in user
+          author: "Euphemia Chikungulu", // In a real app, this would be the logged-in user
           content: content,
         }),
       })
@@ -45,7 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const tweetElement = document.createElement("div")
             tweetElement.className = "tweet"
             tweetElement.innerHTML = `
-                      <img src="https://via.placeholder.com/48" alt="User Avatar" class="avatar">
+                    <img src="user-avatar.jpg" alt="User Avatar" class="avatar">
+
                       <div class="tweet-content">
                           <div class="tweet-author">${tweet.author}</div>
                           <div class="tweet-text">${tweet.content}</div>
@@ -65,15 +66,16 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     }
   
+    //  In a real application, i would fetch trending topics from the server
+    //  For now, i am using  dummy data
     function fetchTrendingTopics() {
-      // In a real application, you would fetch trending topics from the server
-      // For now, we'll use dummy data
+    
       const dummyTrends = [
-        { category: "Technology", name: "#AI", tweets: "340K" },
+        { category: "Technology", name: "#Blockchain Technology", tweets: "340K" },
         { category: "Politics", name: "#Election2024", tweets: "120K" },
         { category: "Sports", name: "Champions League", tweets: "89.7K" },
         { category: "Entertainment", name: "#NewAlbumDrop", tweets: "50K" },
-        { category: "Science", name: "#MarsExploration", tweets: "25.5K" },
+        { category: "Science", name: "#Nasa Exploration", tweets: "25.5K" },
       ]
   
       trendingTopics.innerHTML = ""
